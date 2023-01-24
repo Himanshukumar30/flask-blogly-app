@@ -1,6 +1,6 @@
 """Blogly application."""
 
-from flask import Flask, render_template, redirect
+from flask import Flask, render_template, redirect, request, flash
 from models import db, connect_db, User
 from flask_debugtoolbar import DebugToolbarExtension
 
@@ -37,3 +37,22 @@ def show_pet(user_id):
     user = User.query.get_or_404(user_id)
     return render_template("user_info.html", user=user)
 
+@app.route('/users/new')
+def add_user():
+    """Show form to create new user"""
+    
+    return render_template('new_user.html')
+
+@app.route('/users/new', methods=['POST'])
+def add_user_submit():
+    """Create new user once form is submitted"""
+    new_user = User(
+        first_name = request.form['first_name'],
+        last_name = request.form['last_name'],
+        image_url = request.form['image_url'] or None
+    )
+    db.session.add(new_user)
+    db.session.commit()
+    flash('New User added!')
+    return redirect(f"{new_user.id}")
+    

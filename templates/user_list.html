@@ -7,4 +7,8 @@ content %}
     <a href="/users/{{user.id}}">{{user.first_name}} {{user.last_name}}</a>
   </li>
 </ul>
-{% endfor %} {% endblock content %}
+{% endfor %}
+<form action="/users/new">
+  <button>Add User</button>
+</form>
+{% endblock content %}
