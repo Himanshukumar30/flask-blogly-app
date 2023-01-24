@@ -1,0 +1,7 @@
+{% extends 'base.html' %} {%block title%} User Detail {% endblock %} {% block
+content %}
+<p>
+  Are you sure? You are about to delete {{user.first_name}} {{user.last_name}}
+</p>
+<a href="/users/{{user.id}}/delete/confirm"><button>Confirm</button> </a>
+{% endblock %}

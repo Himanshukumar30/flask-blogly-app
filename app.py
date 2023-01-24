@@ -46,6 +46,7 @@ def add_user():
 @app.route('/users/new', methods=['POST'])
 def add_user_submit():
     """Create new user once form is submitted"""
+    
     new_user = User(
         first_name = request.form['first_name'],
         last_name = request.form['last_name'],
@@ -55,4 +56,38 @@ def add_user_submit():
     db.session.commit()
     flash('New User added!')
     return redirect(f"{new_user.id}")
+
+@app.route('/users/<int:user_id>/edit')
+def edit_user(user_id):
+    """Show edit user page once clicked on edit"""
     
+    user = User.query.get_or_404(user_id)
+    return render_template("user_edit.html", user=user)
+
+@app.route('/users/<int:user_id>/edit', methods=['POST'])
+def edit_user_submit(user_id):
+    """Update user details once form is submitted"""
+    
+    user = User.query.get_or_404(user_id)
+    user.first_name = request.form['first_name'],
+    user.last_name = request.form['last_name'],
+    user.image_url = request.form['image_url'] or None
+        
+    db.session.add(user)
+    db.session.commit()
+    flash('User Details Updated!')
+    return redirect('/users')
+
+@app.route('/users/<int:user_id>/delete')
+def delete_user(user_id):
+    """Show delete user page once clicked on edit"""
+    user = User.query.get_or_404(user_id)
+    return render_template('confirm_delete.html', user=user)
+
+@app.route('/users/<int:user_id>/delete/confirm')
+def confirm_delete(user_id):
+    user = User.query.get_or_404(user_id)
+    db.session.delete(user)
+    db.session.commit()
+    flash('User deleted')
+    return redirect('/users')

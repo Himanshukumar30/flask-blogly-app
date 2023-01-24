@@ -3,8 +3,8 @@ content %}
 <div>
   <img src="{{user.image_url}}" />
   <h1>{{user.first_name}} {{user.last_name}}</h1>
-  <button>Edit</button>
-  <button>Delete</button>
+  <a href="/users/{{user.id}}/edit"><button>Edit</button></a>
+  <a href="/users/{{user.id}}/delete"><button>Delete</button></a>
   <hr />
   <a href="/"> <button>Go Back</button></a>
 </div>
