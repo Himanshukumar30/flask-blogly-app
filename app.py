@@ -31,7 +31,7 @@ def list_users():
 
 
 @app.route("/users/<int:user_id>")
-def show_pet(user_id):
+def show_user(user_id):
     """Show user details"""
 
     user = User.query.get_or_404(user_id)
@@ -89,5 +89,5 @@ def confirm_delete(user_id):
     user = User.query.get_or_404(user_id)
     db.session.delete(user)
     db.session.commit()
-    flash('User deleted')
+    flash('User deleted!')
     return redirect('/users')

@@ -9,7 +9,8 @@ def connect_db(app):
 
     db.app = app
     db.init_app(app)
-    
+
+default_image = 'https://www.freeiconspng.com/img/898'
 
 class User(db.Model):
     """ User."""
@@ -28,5 +29,5 @@ class User(db.Model):
     
     image_url = db.Column(db.String(100),
                           nullable = False,
-                          default = 'Images/profile_pic_generic.jpeg'
+                          default = default_image
                           )
