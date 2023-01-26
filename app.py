@@ -17,8 +17,11 @@ connect_db(app)
 db.create_all()
 
 @app.route('/')
-def root():
-    return redirect('/users')
+def homepage():
+    """Show recent list of posts, most-recent first."""
+
+    posts = Post.query.order_by(Post.created_at.desc()).limit(5).all()
+    return render_template("homepage.html", posts=posts)
     
 
 ######################################
