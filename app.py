@@ -117,9 +117,45 @@ def new_post_submit(user_id):
         user_id=user_id)
     db.session.add(new_post)
     db.session.commit()
+    flash('New Post added!')
     return redirect(f'/users/{user_id}')
 
 @app.route('/posts/<int:post_id>')
 def list_posts(post_id):
+    '''Show post'''
     post = Post.query.get_or_404(post_id)
     return render_template('post_list.html', post=post)
+
+@app.route('/posts/<int:post_id>/edit')
+def edit_post(post_id):
+    """Show edit post page once clicked on edit"""
+    
+    post = Post.query.get_or_404(post_id)
+    return render_template("post_edit.html", post=post)
+
+@app.route('/posts/<int:post_id>/edit', methods=['POST'])
+def edit_post_submit(post_id):
+    """Update post once form is submitted"""
+    
+    post = Post.query.get_or_404(post_id)
+    post.title = request.form['title'],
+    post.content = request.form['content'],
+        
+    db.session.add(post)
+    db.session.commit()
+    flash(f'Post {post.title} Updated!')
+    return redirect(f'/posts/{post_id}')
+
+@app.route('/posts/<int:post_id>/delete')
+def delete_post(post_id):
+    """Show delete post page once clicked on edit"""
+    post = Post.query.get_or_404(post_id)
+    return render_template('confirm_post_delete.html', post=post)
+
+@app.route('/posts/<int:post_id>/delete/confirm')
+def confirm_post_delete(post_id):
+    post = Post.query.get_or_404(post_id)
+    db.session.delete(post)
+    db.session.commit()
+    flash('Post deleted!')
+    return redirect('/')
