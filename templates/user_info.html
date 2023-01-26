@@ -3,12 +3,16 @@ content %}
 <div>
   <img src="{{user.image_url}}" />
   <h1>{{user.first_name}} {{user.last_name}}</h1>
-  <a href="/users/{{user.id}}/edit"><button class="ml-2">Edit</button></a>
-  <a href="/users/{{user.id}}/delete"><button>Delete</button></a>
+  <a href="/users/{{user.id}}/edit"
+    ><button class="btn btn-success ml-2">Edit</button></a
+  >
+  <a href="/users/{{user.id}}/delete"
+    ><button class="btn btn-danger">Delete</button></a
+  >
   <div>
     <p>
       <a href="/users/{{user.id}}/posts/new"
-        ><button class="m-2">Add Post</button></a
+        ><button class="btn btn-info m-2">Add Post</button></a
       >
     </p>
     <i class="m-2">Posts:</i>
@@ -22,7 +26,7 @@ content %}
     </ul>
   </div>
   <hr />
-  <a href="/"> <button class="ml-2">Go Back</button></a>
+  <a href="/"> <button class="btn btn-primary ml-2">Go Back</button></a>
 </div>
 
 {% endblock %}
