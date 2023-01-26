@@ -1,7 +1,7 @@
 {% extends 'base.html' %} {%block title%} Create new user {% endblock %} {%
 block content %}
 
-<form method="POST">
+<form method="POST" class="m-2">
   <label><h1>Edit User {{user.first_name}} {{user.last_name}}</h1></label>
   <p>First Name:</p>
   <input type="text" name="first_name" value="{{user.first_name}}" />
@@ -9,7 +9,7 @@ block content %}
   <input type="text" name="last_name" value="{{user.last_name}}" />
   <p>Image URL</p>
   <input type="text" name="image_url" value="{{user.image_url}}" />
-  <p><button>Update</button></p>
+  <p><button class="btn btn-success mt-2">Update</button></p>
 </form>
 
 {% endblock %}
