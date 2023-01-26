@@ -39,7 +39,6 @@ def list_users():
 @app.route("/users/<int:user_id>")
 def show_user(user_id):
     """Show user details"""
-
     user = User.query.get_or_404(user_id)
     return render_template("user_info.html", user=user)
 
@@ -160,5 +159,5 @@ def confirm_post_delete(post_id):
     post = Post.query.get_or_404(post_id)
     db.session.delete(post)
     db.session.commit()
-    flash('Post deleted!')
+    flash(f'Post {post.title} deleted!')
     return redirect('/')

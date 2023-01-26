@@ -11,6 +11,15 @@ content %}
         ><button class="m-2">Add Post</button></a
       >
     </p>
+    <i class="m-2">Posts:</i>
+    <ul>
+      {% for post in user.posts %}
+      <li>
+        <a href="/posts/{{ post.id}}">{{ post.title }}</a>
+        <small>{{ post.created_at }}</small>
+      </li>
+      {% endfor %}
+    </ul>
   </div>
   <hr />
   <a href="/"> <button class="ml-2">Go Back</button></a>
