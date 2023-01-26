@@ -1,7 +1,7 @@
 """Blogly application."""
 
 from flask import Flask, render_template, redirect, request, flash
-from models import db, connect_db, User
+from models import db, connect_db, User, Post
 from flask_debugtoolbar import DebugToolbarExtension
 
 app = Flask(__name__)
@@ -20,7 +20,10 @@ db.create_all()
 def root():
     return redirect('/users')
     
-    
+
+######################################
+#Users routes >>>>>>>
+
 @app.route('/users')
 def list_users(): 
 
@@ -91,3 +94,32 @@ def confirm_delete(user_id):
     db.session.commit()
     flash('User deleted!')
     return redirect('/users')
+
+######################################
+#Post routes >>>>>>>
+
+@app.route('/users/<int:user_id>/posts/new')
+def new_post(user_id):
+    '''Show form to create post for a specific user'''
+    
+    user = User.query.get_or_404(user_id)
+    return render_template("new_post.html", user=user)
+
+
+@app.route('/users/<int:user_id>/posts/new', methods=['POST'])
+def new_post_submit(user_id):
+    '''Handle form submit on create new post page'''
+    
+    user = User.query.get_or_404(user_id)
+    new_post = Post(
+        title=request.form['title'],
+        content=request.form['content'],
+        user_id=user_id)
+    db.session.add(new_post)
+    db.session.commit()
+    return redirect(f'/users/{user_id}')
+
+@app.route('/posts/<int:post_id>')
+def list_posts(post_id):
+    post = Post.query.get_or_404(post_id)
+    return render_template('post_list.html', post=post)
