@@ -4,5 +4,7 @@ content %}
   Are you sure? You are about to delete User: {{user.first_name}}
   {{user.last_name}}
 </p>
-<a href="/users/{{user.id}}/delete/confirm"><button>Confirm</button> </a>
+<a href="/users/{{user.id}}/delete/confirm"
+  ><button class="btn btn-danger m-2">Confirm</button>
+</a>
 {% endblock %}
