@@ -106,7 +106,7 @@ def new_post(user_id):
     
     user = User.query.get_or_404(user_id)
     tags = Tag.query.all()
-    return render_template("new_post.html", user=user, tag=tags)
+    return render_template("new_post.html", user=user, tags=tags)
 
 
 @app.route('/users/<int:user_id>/posts/new', methods=['POST'])
@@ -136,7 +136,8 @@ def edit_post(post_id):
     """Show edit post page once clicked on edit"""
     
     post = Post.query.get_or_404(post_id)
-    return render_template("post_edit.html", post=post)
+    tags = Tag.query.all()
+    return render_template("post_edit.html", post=post, tags=tags)
 
 @app.route('/posts/<int:post_id>/edit', methods=['POST'])
 def edit_post_submit(post_id):
@@ -146,10 +147,14 @@ def edit_post_submit(post_id):
     post.title = request.form['title'],
     post.content = request.form['content'],
         
+    tag_ids = [int(num) for num in request.form.getlist("tags")]
+    post.tags = Tag.query.filter(Tag.id.in_(tag_ids)).all()
+
     db.session.add(post)
     db.session.commit()
-    flash(f'Post {post.title} Updated!')
-    return redirect(f'/posts/{post_id}')
+    flash(f"Post '{post.title}' edited.")
+
+    return redirect(f"/users/{post.user_id}")
 
 @app.route('/posts/<int:post_id>/delete')
 def delete_post(post_id):
