@@ -3,7 +3,7 @@ content %}
 <h1>Tags</h1>
 {% for tag in tags %}
 <ul>
-  <li>{{tag.name}}</li>
+  <a href="/tags/{{tag.id}}"><li>{{tag.name}}</li></a>
 </ul>
 {% endfor %}
 <a href="/tags/new" class="btn btn-primary m-2">Add Tag</a>
