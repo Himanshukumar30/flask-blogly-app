@@ -5,6 +5,19 @@ content %}
 <form method="POST"> 
     <p> Title: <input type='text', name='title'>{{title}}</input></p>
     <p> Post Content: <input type='text', name='content'>{{content}}</input></p>
+    <p>Post tags:</p>
+    {% for tag in tags %}
+    <div>
+      <input class="form-check-input"
+             type="checkbox"
+             value="{{ tag.id }}"
+             id="tag_{{ tag.id }}"
+             name="tags">
+      <label class="form-check-label" for="tag_{{ tag.id }}">
+        {{ tag.name }}
+      </label>
+    </div>
+    {% endfor %}
     <a href="/users/{{user.id}}" class="btn btn-danger">Cancel</a>
     <button href="/users/{{user.id}}/posts/new" class="btn btn-success">Add</button>
 </form>
