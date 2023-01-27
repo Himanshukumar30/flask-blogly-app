@@ -198,3 +198,37 @@ def new_tag_submit():
     db.session.commit()
     flash('New Tag added!')
     return redirect('/tags')
+
+@app.route('/tags/<int:tag_id>/edit')
+def edit_tag(tag_id):
+    """Show edit tag page once clicked on edit"""
+    
+    tag = Tag.query.get_or_404(tag_id)
+    return render_template("tags/tag_edit.html", tag=tag)
+
+@app.route('/tags/<int:tag_id>/edit', methods=['POST'])
+def edit_tag_submit():
+    '''Handle form submit on edit tag page'''
+
+    tag = Tag(name = request.form['tag'])
+    
+    db.session.add(tag)
+    db.session.commit()
+    
+    flash('Tag updated!')
+    return redirect('/tags')
+
+@app.route('/tags/<int:tag_id>/delete')
+def delete_tag(tag_id):
+    """Show delete tag page once clicked on edit"""
+    
+    tag = Tag.query.get_or_404(tag_id)
+    return render_template('tags/confirm_tag_delete.html', tag=tag)
+
+@app.route('/tags/<int:tag_id>/delete/confirm')
+def confirm_tag_delete(tag_id):
+    tag = Tag.query.get_or_404(tag_id)
+    db.session.delete(tag)
+    db.session.commit()
+    flash(f'Tag: {tag.name} deleted!')
+    return redirect('/tags')

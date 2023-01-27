@@ -1,0 +1,7 @@
+{% extends 'base.html' %} {%block title%} User Detail {% endblock %} {% block
+content %}
+<p>Are you sure? You are about to delete a tag: {{tag.name}}</p>
+<a href="/tags/{{tag.id}}/delete/confirm"
+  ><button class="btn btn-danger m-2">Confirm</button>
+</a>
+{% endblock %}

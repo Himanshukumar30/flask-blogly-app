@@ -1,0 +1,14 @@
+{% extends 'base.html' %} {%block title%} User Detail {% endblock %} {% block
+    content %}
+    
+    <form method="POST" class='m-3'>
+      <h1>Edit a tag</h1>
+      <p>Name:
+        <input type='text' name = 'tag'></input>
+      </p>
+        <a href='/tags' class="btn btn-info">Cancel</a>
+        <button class="btn btn-success">Update</button>
+    </form>
+    
+    {% endblock %}
+    
