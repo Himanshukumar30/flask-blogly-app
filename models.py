@@ -11,7 +11,7 @@ def connect_db(app):
     db.app = app
     db.init_app(app)
 
-default_image = 'Images/profile_pic_generic.jpg'
+default_image = 'images/profile_pic_generic.jpg'
 
 class User(db.Model):
     """ User."""
@@ -27,7 +27,7 @@ class User(db.Model):
                            )
     last_name = db.Column(db.String(50), 
                           nullable = False)
-    
+
     image_url = db.Column(db.String(100),
                           nullable = False,
                           default = default_image

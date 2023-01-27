@@ -15,7 +15,7 @@ content %}
         ><button class="btn btn-info m-2">Add Post</button></a
       >
     </p>
-    {% if user.posts is not none %}
+    {% if user.posts|length > 0 %}
     <i class="m-2">Posts:</i>
     {% endif %} {% for post in user.posts %}
     <ul>
