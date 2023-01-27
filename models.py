@@ -32,7 +32,7 @@ class User(db.Model):
                           nullable = False,
                           default = default_image
                           )
-    posts = db.relationship('Post', backref ='user')
+    posts = db.relationship('Post', backref ='user', cascade="all, delete-orphan")
     
 class Post(db.Model):
     """Post."""
@@ -62,6 +62,9 @@ class Tag(db.Model):
                 autoincrement = True
                 )
     name = db.Column(db.Text, unique=True, nullable=False)
+    
+    # Tag to PostTag to Post relationship
+    posts = db.relationship('Post',secondary="posts_tags",backref="tags")
     
     
 class PostTag(db.Model):
